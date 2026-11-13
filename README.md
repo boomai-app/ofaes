@@ -10,7 +10,7 @@ OFAES is a free, open format for everyday classroom evidence: exit tickets, quic
 4. **What to do next.** Suggested next steps, scoped to one student, a small group or the whole class.
 5. **What the teacher decided.** Accepted, adapted, rejected or waiting for more evidence.
 
-Any tool can read and write it. [Boom AI](https://boomai.app) is one implementation.
+Any tool can read and write it. [Boom AI](https://boomai.app/evidence-review-k12.html) is one implementation.
 
 ## Principles
 
