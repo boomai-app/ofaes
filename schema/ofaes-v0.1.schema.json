@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/boomai-app/ofaes/blob/main/schema/ofaes-v0.1.schema.json",
+  "title": "Open Formative Assessment Evidence Schema (OFAES)",
+  "description": "DRAFT v0.1. One record per piece of classroom evidence: what was observed, how it might be interpreted, how confident anyone is, what to do next, and what the teacher decided. Students are identified only by an anonymous ID. Supports are described by what they do, never by disability or diagnosis.",
+  "type": "object",
+  "required": [
+    "ofaes_version",
+    "record_id",
+    "student_id",
+    "observed",
+    "interpretations",
+    "teacher_decision"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "ofaes_version": {
+      "const": "0.1"
+    },
+    "record_id": {
+      "type": "string",
+      "description": "Unique ID for this record."
+    },
+    "student_id": {
+      "type": "string",
+      "description": "Anonymous, school-assigned ID. Never a name, email or state student number.",
+      "pattern": "^[A-Za-z0-9-]{3,40}$"
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grade": {
+          "type": "string",
+          "examples": [
+            "5"
+          ]
+        },
+        "subject": {
+          "type": "string",
+          "examples": [
+            "math"
+          ]
+        },
+        "standard": {
+          "type": "string",
+          "description": "Learning standard code, if any.",
+          "examples": [
+            "CCSS.MATH.CONTENT.5.NF.A.1"
+          ]
+        },
+        "activity": {
+          "enum": [
+            "exit_ticket",
+            "quick_check",
+            "quiz_item",
+            "journal",
+            "observation",
+            "other"
+          ]
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "observed": {
+      "type": "object",
+      "description": "Exactly what the student wrote, said or did. No interpretation here.",
+      "required": [
+        "item",
+        "response"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "item": {
+          "type": "string",
+          "description": "The prompt or task as the student saw it."
+        },
+        "response": {
+          "type": "string",
+          "description": "The student's response, verbatim."
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Supports in place, described by what they do.",
+          "items": {
+            "enum": [
+              "read aloud",
+              "extra time",
+              "manipulatives available",
+              "scribe",
+              "translated directions",
+              "small group setting",
+              "other"
+            ]
+          }
+        },
+        "observer_note": {
+          "type": "string",
+          "description": "Short note from the adult who observed it, if any."
+        }
+      }
+    },
+    "interpretations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "confidence",
+          "evidence_span",
+          "proposed_by"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Plain-language description of what the response might mean.",
+            "examples": [
+              "added numerators and denominators"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "misconception",
+              "slip",
+              "reading_or_language_barrier",
+              "partial_understanding",
+              "secure",
+              "insufficient_evidence"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "evidence_span": {
+            "type": "string",
+            "description": "The exact part of the response this interpretation rests on."
+          },
+          "could_be_wrong_because": {
+            "type": "string"
+          },
+          "alternatives": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "settling_question": {
+            "type": "string",
+            "description": "The one question that would confirm or rule this out."
+          },
+          "proposed_by": {
+            "enum": [
+              "ai",
+              "teacher",
+              "specialist"
+            ]
+          }
+        }
+      }
+    },
+    "suggested_next_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "action"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "examples": [
+              "two-minute check-in",
+              "small group with fraction strips",
+              "whole-class vocabulary support"
+            ]
+          },
+          "scope": {
+            "enum": [
+              "individual",
+              "small_group",
+              "whole_class"
+            ]
+          },
+          "time_minutes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "teacher_decision": {
+      "type": "object",
+      "required": [
+        "outcome"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {
+          "enum": [
+            "pending",
+            "accepted",
+            "adapted",
+            "rejected",
+            "wait_for_more_evidence"
+          ]
+        },
+        "chosen_action": {
+          "type": "string"
+        },
+        "teacher_note": {
+          "type": "string"
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "shared_with": {
+      "type": "array",
+      "description": "Teams this teacher-confirmed record was shared with. Sharing is controlled by the district.",
+      "items": {
+        "enum": [
+          "intervention_team",
+          "mtss_team",
+          "grade_level_team",
+          "family"
+        ]
+      }
+    }
+  }
+}

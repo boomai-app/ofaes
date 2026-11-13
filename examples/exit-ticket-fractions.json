@@ -1,0 +1,55 @@
+{
+  "ofaes_version": "0.1",
+  "record_id": "r-2026-10-15-S-4417",
+  "student_id": "S-4417",
+  "context": {
+    "grade": "5",
+    "subject": "math",
+    "standard": "CCSS.MATH.CONTENT.5.NF.A.1",
+    "activity": "exit_ticket",
+    "date": "2026-10-15"
+  },
+  "observed": {
+    "item": "What is 2/3 + 1/4? Show your thinking.",
+    "response": "2/3 + 1/4 = 3/7",
+    "conditions": [
+      "read aloud"
+    ]
+  },
+  "interpretations": [
+    {
+      "label": "added numerators and denominators separately",
+      "kind": "misconception",
+      "confidence": 0.72,
+      "evidence_span": "2/3 + 1/4 = 3/7",
+      "could_be_wrong_because": "One item only. A student who is unsure can guess this way once without holding the idea.",
+      "alternatives": [
+        "rushed and fell back on whole-number adding"
+      ],
+      "settling_question": "Is 3/7 bigger or smaller than 2/3?",
+      "proposed_by": "ai"
+    },
+    {
+      "label": "knows the method, rushed this item",
+      "kind": "slip",
+      "confidence": 0.18,
+      "evidence_span": "2/3 + 1/4 = 3/7",
+      "proposed_by": "ai"
+    }
+  ],
+  "suggested_next_steps": [
+    {
+      "action": "small group with fraction strips",
+      "scope": "small_group",
+      "time_minutes": 10
+    }
+  ],
+  "teacher_decision": {
+    "outcome": "accepted",
+    "chosen_action": "small group with fraction strips",
+    "decided_at": "2026-10-15T15:33:00-07:00"
+  },
+  "shared_with": [
+    "intervention_team"
+  ]
+}
